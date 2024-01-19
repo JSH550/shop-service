@@ -1,33 +1,44 @@
 package hello.shopservice.main.item;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class ItemRepository {
-    private static final Map<Long, Item> store = new HashMap<>();
+    private static final Map<Long, ItemDto> store = new ConcurrentHashMap<>();
     private static long sequence = 0L;
 
+//    Create
+    public ItemDto saveItem(ItemDto itemDto){
+        itemDto.setId(++sequence);
+        store.put(itemDto.getId(), itemDto);
+        return itemDto;
+    }
 
-    public Item saveItem(Item item){
-        item.setId(++sequence);
+    public ItemDto updateItem(ItemDto item){
         store.put(item.getId(),item);
         return item;
+    }
 
-
-    };
-    public Item findById(Long id){
+    public ItemDto findById(Long id){
         return store.get(id);
     }
 
-    public List<Item> findAll() {
+    public List<ItemDto> findAll() {
         return new ArrayList<>(store.values());
     }
+
+    /*
+    Delete
+     */
+    public void deleteItem(Long id){
+        store.remove(id);
+    }
+
 
 
 
