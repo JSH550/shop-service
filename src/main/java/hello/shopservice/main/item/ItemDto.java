@@ -1,20 +1,25 @@
 package hello.shopservice.main.item;
 
-import lombok.Data;
 
-@Data
-public class Item {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class ItemDto {
 
     private Long id;
     private String itemName;
     private Integer price;
     private Integer quantity;
 
-    public Item() {
+    public ItemDto() {
 
     }
 
-    public Item(Long id, String itemName, Integer price, Integer quantity) {
+    public ItemDto(Long id, String itemName, Integer price, Integer quantity) {
         this.id = id;
         this.itemName = itemName;
         this.price = price;
